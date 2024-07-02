@@ -26,6 +26,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "json")]
     private array $roles = [];
 
+    #[ORM\ManyToOne(targetEntity: Client::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private Client $client;
+
     // Getters and setters
     public function getId(): ?int
     {
@@ -76,6 +80,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }
