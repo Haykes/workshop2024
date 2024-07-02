@@ -1,6 +1,57 @@
-{% extends '@EasyAdmin/page/content.html.twig' %}
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+{% endblock %}
 
 {% block content %}
-    <h1>Bienvenue sur le tableau de bord administrateur</h1>
-    <p>Utilisez le menu pour naviguer à travers les différentes sections de l'administration.</p>
+    <div class="custom-dashboard">
+        <header class="dashboard-header">
+            <div class="user-info">
+                <div class="user-avatar">{{ app.user.username|first|upper }}</div>
+                <div class="user-name">{{ app.user.username }}</div>
+            </div>
+        </header>
+        <div class="dashboard-content">
+            <h1>Juillet 2024</h1>
+            <div class="stats-grid">
+                <div class="stat-card big">
+                    <div class="stat-icon"><img src="path/to/icon.png" alt="Icon"></div>
+                    <div class="stat-info">
+                        <h2>Chiffre d'affaire</h2>
+                        <p>12 789€</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><img src="path/to/icon.png" alt="Icon"></div>
+                    <div class="stat-info">
+                        <h2>Nombre de vente</h2>
+                        <p>15+</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><img src="path/to/icon.png" alt="Icon"></div>
+                    <div class="stat-info">
+                        <h2>Acquéreurs</h2>
+                        <p>4+</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><img src="path/to/icon.png" alt="Icon"></div>
+                    <div class="stat-info">
+                        <h2>Taux d'évolution</h2>
+                        <p>+11,4%</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><img src="path/to/icon.png" alt="Icon"></div>
+                    <div class="stat-info">
+                        <h2>Certificats générés</h2>
+                        <p>12+</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
