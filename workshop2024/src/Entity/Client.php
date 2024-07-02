@@ -152,5 +152,9 @@ class Client
     {
         $this->updatedAt = $updatedAt;
     }
-
+    public function __toString(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }
+

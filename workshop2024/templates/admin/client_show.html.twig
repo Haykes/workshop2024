@@ -1,0 +1,60 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Détails du Client</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ client.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ client.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ client.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ client.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Téléphone</th>
+                        <td>{{ client.phone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>{{ client.adresse }}</td>
+                    </tr>
+                    <tr>
+                        <th>Complément</th>
+                        <td>{{ client.complement }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville</th>
+                        <td>{{ client.town }}</td>
+                    </tr>
+                    <tr>
+                        <th>Code Postal</th>
+                        <td>{{ client.postalCode }}</td>
+                    </tr>
+                    <tr>
+                        <th>Créé le</th>
+                        <td>{{ client.createdAt ? client.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mis à jour le</th>
+                        <td>{{ client.updatedAt ? client.updatedAt|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>
+                </table>
+
+                <a href="{{ path('admin', { entity: 'Client' }) }}" class="btn btn-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

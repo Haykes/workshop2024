@@ -2,16 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Peinture;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Entity\Client;
+use App\Entity\Peinture;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -46,17 +46,17 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Galerie d\'Art');
+            ->setTitle("Galerie d'Art");
     }
 
     public function configureMenuItems(): iterable
     {
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::section('Gestion des utilisateurs'),
             MenuItem::linkToCrud('Utilisateurs / Clients', 'fa fa-user', User::class),
-            MenuItem::linkToCrud('Tableaux', 'fa fa-user', Peinture::class),
-
-            // Add more menu items here
+            MenuItem::linkToCrud('Clients', 'fa fa-users', Client::class),
+            MenuItem::linkToCrud('Tableaux', 'fa fa-paint-brush', Peinture::class),
         ];
     }
 }
