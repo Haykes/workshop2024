@@ -95,11 +95,11 @@
             <p>The artist reserves all copyright and reproduction rights.</p>
         </div>
         <div class="details">
-            <p><label>Title of Work:</label> <span>{{title}}</span></p>
-            <p><label>Artist:</label> <span>{{name}}</span></p>
-            <p><label>Dimensions:</label> <span>{{width}} x {{height}} cm (Landscape Orientation)</span></p>
-            <p><label>Year Completed:</label> <span>{{createdAt}}</span></p>
-            <p><label>Certified this:</label> <span>25th</span> Day of: <span>July</span>, <span>2024</span></p>
+            <p><label>Title of Work:</label> <span>{{peinture.title}}</span></p>
+            <p><label>Artist:</label> <span>{{peinture.name}}</span></p>
+            <p><label>Dimensions:</label> <span>{{peinture.width}} x {{peinture.height}} cm (Landscape Orientation)</span></p>
+            <p><label>Year Completed:</label> <span>{{peinture.createdAt}}</span></p>
+            <p><label>Certified this:</label> <span>{{ "now"|date("d") }}<sup>th</sup></span> Day of: <span>{{ "now"|date("F") }}, {{ "now"|date("Y") }}</span></p>
         </div>
         <div class="signature">
             <span>ARTIST SIGNATURE</span>
