@@ -3,6 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\Peinture;
+use App\Entity\Vente;
+use App\Entity\Client;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -23,6 +26,7 @@ class AppFixtures extends Fixture
         $admin->setUsername('admin');
         $admin->setPassword($this->passwordHasher->hashPassword($admin, 'adminpassword'));
         $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setEmail('admin@example.com');
         $manager->persist($admin);
 
         // Create a sample regular user
@@ -30,10 +34,11 @@ class AppFixtures extends Fixture
         $user->setUsername('user');
         $user->setPassword($this->passwordHasher->hashPassword($user, 'userpassword'));
         $user->setRoles(['ROLE_USER']);
+        $user->setEmail('user@example.com');
         $manager->persist($user);
 
-        // Flush to save the users in the database
+
+        // Flush to save all entities in the database
         $manager->flush();
     }
 }
-

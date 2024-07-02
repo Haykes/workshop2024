@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: "ventes")]
@@ -27,7 +28,8 @@ class Vente
     #[ORM\Column(type: "decimal", precision: 10, scale: 2)]
     private ?float $amount = null;
 
-    #[ORM\Column(type: "string", columnDefinition: "enum('en attente', 'complétée', 'annulée')")]
+    #[ORM\Column(type: "string", length: 20)]
+    #[Assert\Choice(choices: ["en attente", "complétée", "annulée"], message: "Choisissez un statut valide.")]
     private ?string $status = null;
 
     public function getId(): ?int

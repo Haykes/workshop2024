@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: "peintures")]
@@ -28,7 +29,8 @@ class Peinture
     #[ORM\Column(type: "integer")]
     private ?int $prize = null;
 
-    #[ORM\Column(type: "string", columnDefinition: "enum('disponible', 'vendu')")]
+    #[ORM\Column(type: "string", length: 20)]
+    #[Assert\Choice(choices: ["disponible", "vendu"], message: "Choisissez un statut valide.")]
     private ?string $quantity = null;
 
     #[ORM\Column(type: "datetime")]
@@ -128,4 +130,3 @@ class Peinture
     }
 
 }
-
