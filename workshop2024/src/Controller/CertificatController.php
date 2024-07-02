@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CertificatController extends AbstractController
 {
-    #[Route('/certificat', name: 'app_certificat')]
+    #[Route('/certificat', name: 'certificat')]
     public function index(): Response
     {
         return $this->render('certificat/index.html.twig', [

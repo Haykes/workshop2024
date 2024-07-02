@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PeintureController extends AbstractController
 {
-    #[Route('/peinture', name: 'app_peinture')]
+    #[Route('/peinture', name: 'peinture')]
     public function index(): Response
     {
         return $this->render('peinture/index.html.twig', [

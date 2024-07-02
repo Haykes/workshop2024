@@ -20,6 +20,9 @@ class User
     #[ORM\Column(type: "string", length: 255)]
     private string $password;
 
+    #[ORM\Column(type: "string", length: 255)]
+    private string $roles;
+
     // Getters and setters
     public function getId(): ?int
     {
@@ -48,5 +51,14 @@ class User
         $this->password = $password;
 
         return $this;
+    }
+    public function getRoles(): string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): void
+    {
+        $this->roles = $roles;
     }
 }

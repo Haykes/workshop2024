@@ -1,20 +1,185 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil - Galerie d'Art{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #444;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .nav {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            text-align: right;
+        }
+
+        .nav a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .nav a:hover {
+            background-color: #ddd;
+            color: #444;
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .gallery-item {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .gallery-item .info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .gallery-item .info h3 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .gallery-item .info p {
+            color: #666;
+            margin: 10px 0 0;
+        }
+
+        .footer {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #444;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background-color: #333;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/Administrator/PhpstormProjects/workshop2024/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/Users/Administrator/PhpstormProjects/workshop2024/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="header">
+        <h1>Galerie d'Art</h1>
+        <p>Découvrez l'univers artistique unique</p>
+    </div>
+    <div class="nav">
+        <a href="{{ path('gallery') }}">Galerie en ligne</a>
+        <a href="{{ path('ecommerce') }}">E-commerce</a>
+        <a href="{{ path('blog') }}">Blog</a>
+        <a href="{{ path('contact') }}">Contact</a>
+        <a href="{{ path('login') }}">Se connecter</a>
+    </div>
+    <div class="container">
+        <div class="intro">
+            <h2>Bienvenue dans notre galerie en ligne</h2>
+            <p>Découvrez nos œuvres d'art uniques et achetez en ligne.</p>
+            <a href="{{ path('gallery') }}" class="cta-button">Voir la galerie</a>
+        </div>
+        <div class="gallery">
+            <!-- Exemples d'œuvres d'art, ces éléments seront dynamiquement remplis depuis la base de données -->
+            <div class="gallery-item">
+                <img src="path/to/artwork1.jpg" alt="Peinture 1">
+                <div class="info">
+                    <h3>Peinture 1</h3>
+                    <p>Description de la peinture 1</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="path/to/artwork2.jpg" alt="Peinture 2">
+                <div class="info">
+                    <h3>Peinture 2</h3>
+                    <p>Description de la peinture 2</p>
+                </div>
+            </div>
+            <!-- Ajoutez plus d'œuvres d'art ici -->
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 [Nom de l'Artiste]. Tous droits réservés.</p>
+    </div>
 {% endblock %}
