@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
 #[ORM\Table(name: "peintures")]
@@ -38,6 +40,9 @@ class Peinture
 
     #[ORM\Column(type: "datetime")]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\OneToMany(targetEntity: Certificat::class, mappedBy: "peinture")]
+    private Collection $certificats;
 
     public function getId(): ?int
     {
@@ -129,4 +134,9 @@ class Peinture
         $this->updatedAt = $updatedAt;
     }
 
+    public function getCertificatId(): ?string
+    {
+        $certificat = $this->certificats->first();
+        return $certificat ? (string) $certificat->getId() : 'non certifié';
+    }
 }
