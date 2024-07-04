@@ -1,34 +1,67 @@
-\# workshop2024
+# Workshop
 
-\## Prérequis
+Cette application est r un site web permettant de
+présenter et vendre ses œuvres d'art. Le site inclura une galerie en ligne où les visiteurs
+pourront découvrir les peintures et éventuellement les acheter. Dans ce cadre, nous devons
+également développer un panel administrateur qui permettra à l'artiste de gérer ses
+peintures et de générer des certificats d'authenticité pour chaque vente
 
-\- Docker - Docker Compose - PHP 8.0 ou supérieur - Composer
+## Fonctionnalités
 
-\## Démarrage
+- Offrir une interface utilisateur intuitive pour la gestion de l'inventaire de
+peintures.
+- Automatiser la génération de certificats d'authenticité pour chaque peinture
+vendue.
+- Assurer une gestion efficace et sécurisée des données.
+- 
+## Prérequis
 
-\### Cloner le dépôt
+- Docker
+- Docker Compose
+- PHP 8.0 +
+- Composer
 
-\`\`\`bash git clone \<rhttps://github.com/Haykes/workshop2024\> cd
-\<workshop2024\>
+## Installation
 
-Démarrez le conteneur Docker :
+1. Clonez le dépôt :
 
-docker-compose up -d Installer les dépendances Exécutez la commande
-suivante pour installer les dépendances PHP :
+    ```bash
+    git clone https://github.com/Haykes/workshop2024
+    cd workshop2024
+    ```
 
-composer install
+## Lancer l'application
 
-Mettre à jour le schéma de la base de données Exécutez la commande
-suivante pour mettre à jour le schéma de la base de données :
+1. Assurez-vous que Docker et Docker Compose sont installés sur votre machine.
 
-php bin/console doctrine:schema:update --force
+2. Lancez les services Docker :
 
-Charger les fixtures Exécutez la commande suivante pour charger les
-fixtures dans la base de données :
+    ```bash
+    docker-compose up -d
+    ```
 
-php bin/console doctrine:fixtures:load
+   Cette commande va construire les conteneurs Docker pour la base de donnée.
 
-Démarrer le serveur Symfony Vous pouvez démarrer l'application Symfony
-en utilisant le serveur PHP intégré :
+    ```bash
+    composer install
+    ```
 
-bash Copier le code php -S localhost:8000 -t public
+    ```bash
+    php bin/console doctrine:schema:update --force
+    ```
+
+    ```bash
+    php bin/console doctrine:fixtures:load
+    ```
+
+    ```bash
+    php -S localhost:8000 -t public
+    ```
+
+## Utilisation
+
+1. Ouvrez votre navigateur et accédez à l'URL suivante pour le frontend :
+
+    ```
+    http://localhost:8000
+    ```
