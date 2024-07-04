@@ -13,7 +13,7 @@ peintures.
 - Automatiser la génération de certificats d'authenticité pour chaque peinture
 vendue.
 - Assurer une gestion efficace et sécurisée des données.
-- 
+
 ## Prérequis
 
 - Docker
