@@ -24,7 +24,7 @@ class Peinture
     private ?string $title = null;
 
     #[ORM\Column(type: "string", length: 255)]
-    private ?string $number = null;  // Numéro de la peinture
+    private ?string $number = null;
 
     #[ORM\Column(type: "text")]
     private ?string $description = null;
@@ -49,6 +49,10 @@ class Peinture
 
     #[ORM\Column(type: "datetime")]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\ManyToOne(targetEntity: VenteStatus::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?VenteStatus $status = null;
 
     #[ORM\OneToMany(targetEntity: Certificat::class, mappedBy: "peinture")]
     private Collection $certificats;
@@ -193,6 +197,16 @@ class Peinture
         $this->updatedAt = $updatedAt;
     }
 
+    public function getStatus(): ?VenteStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?VenteStatus $status): void
+    {
+        $this->status = $status;
+    }
+
     public function getCertificatId(): ?string
     {
         $certificat = $this->certificats->first();
@@ -247,5 +261,10 @@ class Peinture
     public function setMainPhotoUrl(?string $mainPhotoUrl): void
     {
         $this->mainPhotoUrl = $mainPhotoUrl;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title ?: '';
     }
 }

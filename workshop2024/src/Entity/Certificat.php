@@ -63,4 +63,5 @@ class Certificat
     {
         $this->generatedAt = $generatedAt;
     }
+
 }

@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: "ventes")]
+#[ORM\HasLifecycleCallbacks]
 class Vente
 {
     #[ORM\Id]
@@ -15,12 +16,16 @@ class Vente
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Peinture::class)]
-    #[ORM\JoinColumn(name: "peinture_id", referencedColumnName: "id")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Peinture $peinture = null;
 
     #[ORM\ManyToOne(targetEntity: Client::class)]
-    #[ORM\JoinColumn(name: "client_id", referencedColumnName: "id")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
+
+    #[ORM\ManyToOne(targetEntity: VenteStatus::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?VenteStatus $status = null;
 
     #[ORM\Column(type: "datetime")]
     private ?\DateTimeInterface $realisedAt = null;
@@ -28,18 +33,25 @@ class Vente
     #[ORM\Column(type: "decimal", precision: 10, scale: 2)]
     private ?float $amount = null;
 
-    #[ORM\Column(type: "string", length: 20)]
-    #[Assert\Choice(choices: ["en attente", "complétée", "annulée"], message: "Choisissez un statut valide.")]
-    private ?string $status = null;
+    #[ORM\PrePersist]
+    public function prePersist()
+    {
+        if ($this->peinture) {
+            $this->amount = $this->peinture->getPrize();
+        }
+    }
+
+    #[ORM\PreUpdate]
+    public function preUpdate()
+    {
+        if ($this->peinture) {
+            $this->amount = $this->peinture->getPrize();
+        }
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
     }
 
     public function getPeinture(): ?Peinture
@@ -62,6 +74,16 @@ class Vente
         $this->client = $client;
     }
 
+    public function getStatus(): ?VenteStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?VenteStatus $status): void
+    {
+        $this->status = $status;
+    }
+
     public function getRealisedAt(): ?\DateTimeInterface
     {
         return $this->realisedAt;
@@ -81,15 +103,4 @@ class Vente
     {
         $this->amount = $amount;
     }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?string $status): void
-    {
-        $this->status = $status;
-    }
-
 }

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Client;
+use App\Repository\VenteRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
@@ -58,10 +59,13 @@ class ClientCrudController extends AbstractCrudController
     }
 
     #[Route('/admin/client/{id}', name: 'admin_client_show')]
-    public function show(Client $client): Response
+    public function show(Client $client, VenteRepository $venteRepository): Response
     {
+        $ventes = $venteRepository->findBy(['client' => $client]);
+
         return $this->render('admin/client_show.html.twig', [
             'client' => $client,
+            'ventes' => $ventes,
         ]);
     }
 }

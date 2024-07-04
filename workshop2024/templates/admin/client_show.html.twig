@@ -53,6 +53,42 @@
                     </tr>
                 </table>
 
+                <h2 class="mt-4">Peintures Possédées</h2>
+                {% if ventes is empty %}
+                    <p>Aucune peinture achetée.</p>
+                {% else %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Prix</th>
+                            <th>Statut</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for vente in ventes %}
+                            <tr>
+                                <td>{{ vente.peinture.id }}</td>
+                                <td>
+                                    {% if vente.peinture.mainPhotoUrl %}
+                                        <img src="{{ asset('uploads/images/peintures/' ~ vente.peinture.mainPhotoUrl) }}" alt="{{ vente.peinture.title }}" style="max-width: 300px; max-height: 300px;">
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>{{ vente.peinture.title }}</td>
+                                <td>{{ vente.peinture.description }}</td>
+                                <td>{{ vente.amount }}</td>
+                                <td>{{ vente.peinture.status.name }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+
                 <a href="{{ path('admin_dashboard', { entity: 'Client' }) }}" class="btn btn-primary">Retour</a>
             </div>
         </div>

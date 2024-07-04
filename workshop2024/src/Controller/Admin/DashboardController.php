@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Vente;
+use App\Entity\VenteStatus;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,7 +58,9 @@ class DashboardController extends AbstractDashboardController
             MenuItem::section('Gestion des utilisateurs'),
             MenuItem::linkToCrud('Utilisateurs / Clients', 'fa fa-user', User::class),
             MenuItem::linkToCrud('Clients', 'fa fa-users', Client::class),
-            MenuItem::linkToCrud('Tableaux', 'fa fa-paint-brush', Peinture::class),
+            MenuItem::linkToCrud('Peinture', 'fa fa-paint-brush', Peinture::class),
+            MenuItem::linkToCrud('Ventes', 'fa fa-shopping-cart', Vente::class),
+            MenuItem::linkToCrud('Statuts de vente', 'fa fa-tags', VenteStatus::class),
         ];
     }
 }

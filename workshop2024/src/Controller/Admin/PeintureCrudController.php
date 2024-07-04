@@ -31,6 +31,7 @@ class PeintureCrudController extends AbstractCrudController
             TextareaField::new('description', 'Description'),
             NumberField::new('prize', 'Prix'),
             NumberField::new('quantity', 'Quantité'),
+            AssociationField::new('status', 'Statut de la peinture'),
             ImageField::new('mainPhotoUrl', 'Photo principale')
                 ->setBasePath('/uploads/images/peintures')
                 ->onlyOnIndex(),
