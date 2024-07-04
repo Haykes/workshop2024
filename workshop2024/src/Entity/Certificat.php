@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\CertificatRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
-#[ORM\Table(name: "certificats")]
+#[ORM\Entity(repositoryClass: CertificatRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Certificat
 {
     #[ORM\Id]
@@ -14,24 +15,18 @@ class Certificat
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Peinture::class)]
-    #[ORM\JoinColumn(name: "peinture_id", referencedColumnName: "id")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Peinture $peinture = null;
-
-    #[ORM\ManyToOne(targetEntity: Client::class)]
-    #[ORM\JoinColumn(name: "client_id", referencedColumnName: "id")]
-    private ?Client $client = null;
 
     #[ORM\Column(type: "datetime")]
     private ?\DateTimeInterface $generatedAt = null;
 
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $filePath = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
     }
 
     public function getPeinture(): ?Peinture
@@ -39,19 +34,11 @@ class Certificat
         return $this->peinture;
     }
 
-    public function setPeinture(?Peinture $peinture): void
+    public function setPeinture(?Peinture $peinture): self
     {
         $this->peinture = $peinture;
-    }
 
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): void
-    {
-        $this->client = $client;
+        return $this;
     }
 
     public function getGeneratedAt(): ?\DateTimeInterface
@@ -59,9 +46,21 @@ class Certificat
         return $this->generatedAt;
     }
 
-    public function setGeneratedAt(?\DateTimeInterface $generatedAt): void
+    #[ORM\PrePersist]
+    public function setGeneratedAtValue(): void
     {
-        $this->generatedAt = $generatedAt;
+        $this->generatedAt = new \DateTime();
     }
 
+    public function getFilePath(): ?string
+    {
+        return $this->filePath;
+    }
+
+    public function setFilePath(string $filePath): self
+    {
+        $this->filePath = $filePath;
+
+        return $this;
+    }
 }
