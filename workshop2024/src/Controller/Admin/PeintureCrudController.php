@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 
 class PeintureCrudController extends AbstractCrudController
 {
@@ -38,6 +39,16 @@ class PeintureCrudController extends AbstractCrudController
             TextField::new('mainPhotoFile', 'Photo principale')
                 ->setFormType(VichImageType::class)
                 ->onlyOnForms(),
+            Field::new('certificat', 'Certificat')
+            ->formatValue(function ($value, $entity) {
+                if ($entity->hasCertificat()) {
+                    $certificat = $entity->getCertificats()->first();                        
+                    return sprintf('<a href="%s" target="_blank">Télécharger le certificat</a>', $certificat->getFilePath());
+                } else {
+                    return sprintf('<a href="%s">Générer le PDF</a>', $this->generateUrl('generate_pdf', ['id' => $entity->getId()]));
+                }
+            })
+            ->onlyOnIndex(),
         ];
     }
 }

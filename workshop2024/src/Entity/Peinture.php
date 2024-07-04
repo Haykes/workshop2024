@@ -207,12 +207,6 @@ class Peinture
         $this->status = $status;
     }
 
-    public function getCertificatId(): ?string
-    {
-        $certificat = $this->certificats->first();
-        return $certificat ? (string) $certificat->getId() : 'non certifié';
-    }
-
     public function getGallery(): Collection
     {
         return $this->gallery;
@@ -261,6 +255,38 @@ class Peinture
     public function setMainPhotoUrl(?string $mainPhotoUrl): void
     {
         $this->mainPhotoUrl = $mainPhotoUrl;
+    }
+
+    public function getCertificats(): Collection
+    {
+        return $this->certificats;
+    }
+
+    public function addCertificat(Certificat $certificat): self
+    {
+        if (!$this->certificats->contains($certificat)) {
+            $this->certificats[] = $certificat;
+            $certificat->setPeinture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCertificat(Certificat $certificat): self
+    {
+        if ($this->certificats->removeElement($certificat)) {
+            // set the owning side to null (unless already changed)
+            if ($certificat->getPeinture() === $this) {
+                $certificat->setPeinture(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function hasCertificat(): bool
+    {
+        return !$this->certificats->isEmpty();
     }
 
     public function __toString(): string
