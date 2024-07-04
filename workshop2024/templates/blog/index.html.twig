@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #5D5A88;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .nav {
+            background-color: #5D5A88;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav a {
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .nav a:hover {
+            background-color: #fff;
+            color: #5D5A88;
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .container h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #5D5A88;
+            text-align: center;
+        }
+
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .post-item {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .post-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .post-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .post-item .info {
+            padding: 15px;
+        }
+
+        .post-item .info h3 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #5D5A88;
+        }
+
+        .post-item .info p {
+            color: #666;
+            margin: 10px 0 0;
+        }
+
+        .footer {
+            background-color: #5D5A88;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="header">
+        <h1>Galerie d'Art</h1>
+        <p>Découvrez notre blog sur l'art et la culture</p>
+    </div>
+    <div class="nav">
+        <a href="{{ path('gallery') }}">Galerie en ligne</a>
+        <a href="{{ path('ecommerce') }}">E-commerce</a>
+        <a href="{{ path('blog') }}">Blog</a>
+        <a href="{{ path('contact') }}">Contact</a>
+        <a href="{{ path('login') }}">Se connecter</a>
+    </div>
+    <div class="container">
+        <h2>Nos Articles</h2>
+        <div class="post-list">
+            <!-- Exemples d'articles, ces éléments seront dynamiquement remplis depuis la base de données -->
+            <div class="post-item">
+                <img src="path/to/blogpost1.jpg" alt="Article 1">
+                <div class="info">
+                    <h3>Article 1</h3>
+                    <p>Résumé de l'article 1</p>
+                </div>
+            </div>
+            <div class="post-item">
+                <img src="path/to/blogpost2.jpg" alt="Article 2">
+                <div class="info">
+                    <h3>Article 2</h3>
+                    <p>Résumé de l'article 2</p>
+                </div>
+            </div>
+            <!-- Ajoutez plus d'articles ici -->
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 [Nom de l'Artiste]. Tous droits réservés.</p>
+    </div>
+{% endblock %}
