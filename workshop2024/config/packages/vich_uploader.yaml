@@ -1,0 +1,7 @@
+vich_uploader:
+    db_driver: orm
+    mappings:
+        peinture_image:
+            uri_prefix: /uploads/images/peintures
+            upload_destination: '%kernel.project_dir%/public/uploads/images/peintures'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

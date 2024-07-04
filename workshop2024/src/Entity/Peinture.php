@@ -4,11 +4,15 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks] // Ajouté pour les callbacks
 #[ORM\Table(name: "peintures")]
+#[Vich\Uploadable]
 class Peinture
 {
     #[ORM\Id]
@@ -19,6 +23,9 @@ class Peinture
     #[ORM\Column(type: "string", length: 255)]
     private ?string $title = null;
 
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $number = null;  // Numéro de la peinture
+
     #[ORM\Column(type: "text")]
     private ?string $description = null;
 
@@ -28,12 +35,14 @@ class Peinture
     #[ORM\Column(type: "integer")]
     private ?int $height = null;
 
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $method = null;  // Méthode de peinture
+
     #[ORM\Column(type: "integer")]
     private ?int $prize = null;
 
-    #[ORM\Column(type: "string", length: 20)]
-    #[Assert\Choice(choices: ["disponible", "vendu"], message: "Choisissez un statut valide.")]
-    private ?string $quantity = null;
+    #[ORM\Column(type: "integer")]
+    private ?int $quantity = null;  // Changer à un entier
 
     #[ORM\Column(type: "datetime")]
     private ?\DateTimeInterface $createdAt = null;
@@ -43,6 +52,36 @@ class Peinture
 
     #[ORM\OneToMany(targetEntity: Certificat::class, mappedBy: "peinture")]
     private Collection $certificats;
+
+    #[ORM\OneToMany(targetEntity: Gallery::class, mappedBy: "peinture", cascade: ["persist", "remove"])]
+    private Collection $gallery;
+
+    #[Vich\UploadableField(mapping: "peinture_image", fileNameProperty: "mainPhotoUrl")]
+    private ?File $mainPhotoFile = null;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $mainPhotoUrl = null;
+
+    public function __construct()
+    {
+        $this->certificats = new ArrayCollection();
+        $this->gallery = new ArrayCollection();
+    }
+
+    // Getters and setters...
+
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    #[ORM\PreUpdate]
+    public function onPreUpdate(): void
+    {
+        $this->updatedAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -62,6 +101,16 @@ class Peinture
     public function setTitle(?string $title): void
     {
         $this->title = $title;
+    }
+
+    public function getNumber(): ?string
+    {
+        return $this->number;
+    }
+
+    public function setNumber(?string $number): void
+    {
+        $this->number = $number;
     }
 
     public function getDescription(): ?string
@@ -94,6 +143,16 @@ class Peinture
         $this->height = $height;
     }
 
+    public function getMethod(): ?string
+    {
+        return $this->method;
+    }
+
+    public function setMethod(?string $method): void
+    {
+        $this->method = $method;
+    }
+
     public function getPrize(): ?int
     {
         return $this->prize;
@@ -104,12 +163,12 @@ class Peinture
         $this->prize = $prize;
     }
 
-    public function getQuantity(): ?string
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
-    public function setQuantity(?string $quantity): void
+    public function setQuantity(?int $quantity): void
     {
         $this->quantity = $quantity;
     }
@@ -138,5 +197,55 @@ class Peinture
     {
         $certificat = $this->certificats->first();
         return $certificat ? (string) $certificat->getId() : 'non certifié';
+    }
+
+    public function getGallery(): Collection
+    {
+        return $this->gallery;
+    }
+
+    public function addGallery(Gallery $gallery): self
+    {
+        if (!$this->gallery->contains($gallery)) {
+            $this->gallery[] = $gallery;
+            $gallery->setPeinture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGallery(Gallery $gallery): self
+    {
+        if ($this->gallery->removeElement($gallery)) {
+            if ($gallery->getPeinture() === $this) {
+                $gallery->setPeinture(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMainPhotoFile(): ?File
+    {
+        return $this->mainPhotoFile;
+    }
+
+    public function setMainPhotoFile(?File $mainPhotoFile): void
+    {
+        $this->mainPhotoFile = $mainPhotoFile;
+
+        if ($mainPhotoFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getMainPhotoUrl(): ?string
+    {
+        return $this->mainPhotoUrl;
+    }
+
+    public function setMainPhotoUrl(?string $mainPhotoUrl): void
+    {
+        $this->mainPhotoUrl = $mainPhotoUrl;
     }
 }
